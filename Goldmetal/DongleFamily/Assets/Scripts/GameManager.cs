@@ -8,6 +8,13 @@ public class GameManager : MonoBehaviour
     public GameObject donglePrefab;
     public Transform dongleGroup;
 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        Application.targetFrameRate = 60;
+    }
 
     void Start()
     {
@@ -27,7 +34,7 @@ public class GameManager : MonoBehaviour
         lastDongle = newDongle;
         lastDongle.level = Random.Range(0, 8);
         lastDongle.gameObject.SetActive(true);
-        
+
         StartCoroutine(WaitNext());
     }
 
