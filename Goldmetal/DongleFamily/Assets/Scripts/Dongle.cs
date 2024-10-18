@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Dongle : MonoBehaviour
 {
+    public int level;
     public bool isDrag;
     Rigidbody2D rigid;
+    Animator anim;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -13,6 +15,15 @@ public class Dongle : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+    }
+
+    /// <summary>
+    /// This function is called when the object becomes enabled and active.
+    /// </summary>
+    void OnEnable()
+    {
+        anim.SetInteger("Level", level);
     }
 
 

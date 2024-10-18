@@ -25,6 +25,21 @@ public class GameManager : MonoBehaviour
     {
         Dongle newDongle = GetDongle();
         lastDongle = newDongle;
+        lastDongle.level = Random.Range(0, 8);
+        lastDongle.gameObject.SetActive(true);
+        
+        StartCoroutine(WaitNext());
+    }
+
+    IEnumerator WaitNext()
+    {
+        while(lastDongle != null) {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.5f); // 2.5초 쉬고 아래 로직 실행
+
+        NextDongle();
     }
 
     public void TouchDown()
