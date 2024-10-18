@@ -6,7 +6,10 @@ public class Dongle : MonoBehaviour
 {
     public int level;
     public bool isDrag;
+    public bool isMerge;
+
     Rigidbody2D rigid;
+    CircleCollider2D circle;
     Animator anim;
 
     /// <summary>
@@ -15,6 +18,7 @@ public class Dongle : MonoBehaviour
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
+        circle = GetComponent<CircleCollider2D>();
         anim = GetComponent<Animator>();
     }
 
@@ -67,4 +71,62 @@ public class Dongle : MonoBehaviour
         isDrag = false;
         rigid.simulated = true;
     }
+
+    /// <summary>
+    /// Sent each frame where a collider on another object is touching
+    /// this object's collider (2D physics only).
+    /// </summary>
+    /// <param name="other">The Collision2D data associated with this collision.</param>
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Dongle") {
+            Dongle other = collision.gameObject.GetComponent<Dongle>();
+
+            if (level == other.level && !isMerge && !other.isMerge && level < 7) {
+                // 동글 합치기 로직
+                
+                // 나와 상대편 위치 가져오기
+                float meX = transform.position.x;
+                float meY = transform.position.y;
+                float otherX = other.transform.position.x;
+                float otherY = other.transform.position.y;
+
+                // 1. 내가 아래에 있을 때
+                // 2. 동일한 높이 일때, 내가 오른쪽에 있을 때
+                if (meY < otherY || (meY == otherY && meX > otherX)) {
+                    // 상대방은 숨기기
+                    other.Hide(transform.position);
+                    // 나는 레벨업
+                }
+            }
+        }
+    }
+
+
+    public void Hide(Vector3 tartgetPos)
+    {
+        isMerge = true;
+        
+        // 흡수 이동을 위해 물리효과 모두 비활성화
+        rigid.simulated = false;
+        circle.enabled = false;
+
+        StartCoroutine(HideRoutine(tartgetPos));
+    }
+
+    IEnumerator HideRoutine(Vector3 tartgetPos)
+    {
+        int frameCount = 0;
+
+        while(frameCount < 20) {
+            frameCount++;
+            transform.position = Vector3.Lerp(transform.position, tartgetPos, 0.5f);
+            yield return null; // 1프레임 쉬기
+        }
+
+        // while문이 끝나면 잠금해제하면서 오브젝트 비활성화
+        isMerge = false;
+        gameObject.SetActive(false);
+    }
+    
 }
