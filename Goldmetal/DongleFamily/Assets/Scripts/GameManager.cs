@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public int score;
     public int maxLevel;
+    public bool isOver;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -78,4 +79,14 @@ public class GameManager : MonoBehaviour
         lastDongle.Drop();
         lastDongle = null;
     }
+
+    public void GameOver()
+    {
+        if (isOver) {
+            return;
+        }
+        isOver = true;
+        Debug.Log("게임 오버!");
+    }
+
 }

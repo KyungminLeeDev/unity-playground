@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Dongle : MonoBehaviour
@@ -13,6 +14,9 @@ public class Dongle : MonoBehaviour
     Rigidbody2D rigid;
     CircleCollider2D circle;
     Animator anim;
+    SpriteRenderer spriteRenderer;
+
+    float deadTime;
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -22,6 +26,7 @@ public class Dongle : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         circle = GetComponent<CircleCollider2D>();
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -161,6 +166,38 @@ public class Dongle : MonoBehaviour
         manager.maxLevel = Mathf.Max(level, manager.maxLevel);
 
         isMerge = false;
+    }
+
+    /// <summary>
+    /// Sent each frame where another object is within a trigger collider
+    /// attached to this object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish") {
+            deadTime += Time.deltaTime;
+
+            if (deadTime > 2) {
+                spriteRenderer.color = new Color(0.9f, 0.2f, 0.2f);
+            }
+            if (deadTime > 5) {
+                manager.GameOver();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Sent when another object leaves a trigger collider attached to
+    /// this object (2D physics only).
+    /// </summary>
+    /// <param name="other">The other Collider2D involved in this collision.</param>
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Finish") {
+            deadTime = 0;
+            spriteRenderer.color = Color.white;
+        }
     }
     
 
