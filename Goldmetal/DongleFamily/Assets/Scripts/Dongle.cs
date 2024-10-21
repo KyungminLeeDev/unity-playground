@@ -97,6 +97,7 @@ public class Dongle : MonoBehaviour
                     // 상대방은 숨기기
                     other.Hide(transform.position);
                     // 나는 레벨업
+                    LevelUp();
                 }
             }
         }
@@ -127,6 +128,30 @@ public class Dongle : MonoBehaviour
         // while문이 끝나면 잠금해제하면서 오브젝트 비활성화
         isMerge = false;
         gameObject.SetActive(false);
+    }
+
+    void LevelUp()
+    {
+        isMerge = true;
+
+        // 레벨업중에는 물리속도 제거
+        rigid.velocity = Vector2.zero;
+        rigid.angularVelocity = 0;
+
+        StartCoroutine(LevelUpRoutine());
+    }
+
+    IEnumerator LevelUpRoutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        anim.SetInteger("Level", level + 1);
+
+        yield return new WaitForSeconds(0.3f);
+
+        level++;
+
+        isMerge = false;
     }
     
 }
