@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dongle : MonoBehaviour
 {
+    public GameManager manager;
     public int level;
     public bool isDrag;
     public bool isMerge;
@@ -150,6 +151,9 @@ public class Dongle : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
 
         level++;
+
+        // MathF.max() : 인자 값 중에 최대값을 반환하는 함수
+        manager.maxLevel = Mathf.Max(level, manager.maxLevel);
 
         isMerge = false;
     }

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public GameObject donglePrefab;
     public Transform dongleGroup;
 
+    public int maxLevel;
+
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
@@ -32,8 +34,8 @@ public class GameManager : MonoBehaviour
     {
         Dongle newDongle = GetDongle();
         lastDongle = newDongle;
-        // lastDongle.level = Random.Range(0, 8);
-        lastDongle.level = Random.Range(0, 2); // 테스트위해 레벨2까지
+        lastDongle.manager = this; // 게임매니저 자신을 연결
+        lastDongle.level = Random.Range(0, maxLevel);
         lastDongle.gameObject.SetActive(true);
 
         StartCoroutine(WaitNext());
