@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject effectPrefab;
     public Transform effectGroup;
 
+    public int score;
     public int maxLevel;
 
     /// <summary>

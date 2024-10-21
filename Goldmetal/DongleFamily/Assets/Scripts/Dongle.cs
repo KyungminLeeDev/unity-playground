@@ -127,6 +127,9 @@ public class Dongle : MonoBehaviour
             yield return null; // 1프레임 쉬기
         }
 
+        // Math.Pow() : 지정 숫자의 거듭제곱
+        manager.score += (int)Mathf.Pow(2, level);
+
         // while문이 끝나면 잠금해제하면서 오브젝트 비활성화
         isMerge = false;
         gameObject.SetActive(false);
