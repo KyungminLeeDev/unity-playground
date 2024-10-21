@@ -11,7 +11,7 @@ public class Dongle : MonoBehaviour
     public bool isDrag;
     public bool isMerge;
 
-    Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     CircleCollider2D circle;
     Animator anim;
     SpriteRenderer spriteRenderer;
@@ -119,6 +119,11 @@ public class Dongle : MonoBehaviour
         rigid.simulated = false;
         circle.enabled = false;
 
+        if (tartgetPos == Vector3.up * 100) {
+            // 게임오버되어 없앨시에는 파티클 이펙트 실행
+            EffectPlay();
+        }
+
         StartCoroutine(HideRoutine(tartgetPos));
     }
 
@@ -128,7 +133,14 @@ public class Dongle : MonoBehaviour
 
         while(frameCount < 20) {
             frameCount++;
-            transform.position = Vector3.Lerp(transform.position, tartgetPos, 0.5f);
+            if (tartgetPos != Vector3.up * 100) {
+                transform.position = Vector3.Lerp(transform.position, tartgetPos, 0.5f);
+            }
+            else if (tartgetPos == Vector3.up * 100) {
+                // 게임오버시
+                transform.localScale = Vector3.Lerp(transform.localScale, Vector3.zero, 0.2f);
+            }
+            
             yield return null; // 1프레임 쉬기
         }
 

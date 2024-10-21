@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -43,6 +44,10 @@ public class GameManager : MonoBehaviour
 
     void NextDongle()
     {
+        if (isOver) {
+            return;
+        }
+
         Dongle newDongle = GetDongle();
         lastDongle = newDongle;
         lastDongle.manager = this; // 게임매니저 자신을 연결
@@ -86,7 +91,25 @@ public class GameManager : MonoBehaviour
             return;
         }
         isOver = true;
-        Debug.Log("게임 오버!");
+        
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        // 1. 씬 안에 활성화 되어있는 모든 동글 가져오기
+        Dongle[] dongles = GameObject.FindObjectsOfType<Dongle>();
+
+        // 2. 지우기 전에 모든 동글의 물리효과 비활성화
+        for (int index = 0; index < dongles.Length; index++) {
+            dongles[index].rigid.simulated = false;
+        }
+
+        // 3. 1번의 목록을 하나씩 접근해서 지우기 -> 점수 정리
+        for (int index = 0; index < dongles.Length; index++) {
+            dongles[index].Hide(Vector3.up * 100); // 게임플레이중 나올수 없는 큰값을 넣어서 구분시켜서 임시로 해결
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
 }
