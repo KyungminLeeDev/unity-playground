@@ -5,6 +5,7 @@ using UnityEngine;
 public class Dongle : MonoBehaviour
 {
     public GameManager manager;
+    public ParticleSystem effect;
     public int level;
     public bool isDrag;
     public bool isMerge;
