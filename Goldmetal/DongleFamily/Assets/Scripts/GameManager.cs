@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public GameObject effectPrefab;
     public Transform effectGroup;
 
+    public AudioSource bgmPlayer;
+
     public int score;
     public int maxLevel;
     public bool isOver;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        bgmPlayer.Play();
         NextDongle();
     }
 
