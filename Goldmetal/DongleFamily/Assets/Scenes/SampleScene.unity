@@ -937,14 +937,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f7f510eec773b4490607cd41c6a81f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastDongle: {fileID: 0}
   donglePrefab: {fileID: 7590110297695034228, guid: 7fd34ca0b61d6034db0d70dd164d3fd9, type: 3}
   dongleGroup: {fileID: 925796786}
   donglePool: []
   effectPrefab: {fileID: 2110787935069128156, guid: 3fedad7710d269e488a36b08a8b68ac2, type: 3}
   effectGroup: {fileID: 1147578221}
   effectPool: []
-  poolSize: 10
+  poolSize: 3
+  poolCursior: 0
+  lastDongle: {fileID: 0}
   bgmPlayer: {fileID: 2126599504}
   sfxPlayer:
   - {fileID: 2086950212}

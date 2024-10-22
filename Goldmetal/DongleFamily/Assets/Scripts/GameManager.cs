@@ -69,7 +69,14 @@ public class GameManager : MonoBehaviour
 
     Dongle  GetDongle()
     {
-        return null;
+        for (int index = 0; index < donglePool.Count; index++) {
+            poolCursior = (poolCursior + 1) % donglePool.Count;
+            if (!donglePool[poolCursior].gameObject.activeSelf) {
+                return donglePool[poolCursior];
+            }
+        }
+
+        return MakeDongle();
     }
 
     void NextDongle()
@@ -78,8 +85,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Dongle newDongle = GetDongle();
-        lastDongle = newDongle;
+        lastDongle = GetDongle();
         lastDongle.level = Random.Range(0, maxLevel);
         lastDongle.gameObject.SetActive(true);
 
