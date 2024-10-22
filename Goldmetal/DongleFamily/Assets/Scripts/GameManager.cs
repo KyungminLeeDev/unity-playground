@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviour
     public Transform effectGroup;
 
     public AudioSource bgmPlayer;
+    public AudioSource[] sfxPlayer;
+    public AudioClip[] sfxClip;
+    public enum Sfx { LevelUp, Next, Attach, Button, Over };
+    int sfxCursor;
 
     public int score;
     public int maxLevel;
@@ -113,6 +117,31 @@ public class GameManager : MonoBehaviour
             dongles[index].Hide(Vector3.up * 100); // 게임플레이중 나올수 없는 큰값을 넣어서 구분시켜서 임시로 해결
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public void SfxPlay(Sfx type)
+    {
+        switch (type) {
+            case Sfx.LevelUp:
+                sfxPlayer[sfxCursor].clip = sfxClip[Random.Range(0, 3)];
+                break;
+            case Sfx.Next:
+                sfxPlayer[sfxCursor].clip = sfxClip[3];
+                break;
+            case Sfx.Attach:
+                sfxPlayer[sfxCursor].clip = sfxClip[4];
+                break;
+            case Sfx.Button:
+                sfxPlayer[sfxCursor].clip = sfxClip[5];
+                break;
+            case Sfx.Over:
+                sfxPlayer[sfxCursor].clip = sfxClip[6];
+                break;
+        }
+
+        sfxPlayer[sfxCursor].Play();
+        sfxCursor = (sfxCursor + 1) % sfxPlayer.Length;
+
     }
 
 }
