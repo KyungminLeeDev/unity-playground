@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         lastDongle.level = Random.Range(0, maxLevel);
         lastDongle.gameObject.SetActive(true);
 
+        SfxPlay(Sfx.Next);
         StartCoroutine(WaitNext());
     }
 
@@ -117,6 +118,10 @@ public class GameManager : MonoBehaviour
             dongles[index].Hide(Vector3.up * 100); // 게임플레이중 나올수 없는 큰값을 넣어서 구분시켜서 임시로 해결
             yield return new WaitForSeconds(0.1f);
         }
+
+        yield return new WaitForSeconds(1.0f);
+
+        SfxPlay(Sfx.Over);
     }
 
     public void SfxPlay(Sfx type)
