@@ -943,7 +943,7 @@ MonoBehaviour:
   effectPrefab: {fileID: 2110787935069128156, guid: 3fedad7710d269e488a36b08a8b68ac2, type: 3}
   effectGroup: {fileID: 1147578221}
   effectPool: []
-  poolSize: 3
+  poolSize: 5
   poolCursior: 0
   lastDongle: {fileID: 0}
   bgmPlayer: {fileID: 2126599504}
