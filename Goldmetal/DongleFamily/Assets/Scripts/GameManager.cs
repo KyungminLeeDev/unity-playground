@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,7 +30,11 @@ public class GameManager : MonoBehaviour
     public enum Sfx { LevelUp, Next, Attach, Button, Over };
     int sfxCursor;
 
-    
+    [Header("----------------[ UI ]")]
+    public Text scoreText;
+    public Text maxScoreText;
+
+
 
     /// <summary>
     /// Awake is called when the script instance is being loaded.
@@ -43,6 +48,12 @@ public class GameManager : MonoBehaviour
         for (int index = 0; index < poolSize; index++) {
             MakeDongle();
         } 
+
+        if (!PlayerPrefs.HasKey("MaxScore")) {
+            PlayerPrefs.SetInt("MaxScore", 0);
+        }
+
+        maxScoreText.text = PlayerPrefs.GetInt("MaxScore").ToString();
     }
 
     void Start()
@@ -152,6 +163,9 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
+        int maxScore = Mathf.Max(score, PlayerPrefs.GetInt("MaxScore"));
+        PlayerPrefs.SetInt("MaxScore", maxScore);
+
         SfxPlay(Sfx.Over);
     }
 
@@ -178,6 +192,15 @@ public class GameManager : MonoBehaviour
         sfxPlayer[sfxCursor].Play();
         sfxCursor = (sfxCursor + 1) % sfxPlayer.Length;
 
+    }
+
+    /// <summary>
+    /// LateUpdate is called every frame, if the Behaviour is enabled.
+    /// It is called after all Update functions have been called.
+    /// </summary>
+    void LateUpdate()
+    {
+        scoreText.text = score.ToString();
     }
 
 }
