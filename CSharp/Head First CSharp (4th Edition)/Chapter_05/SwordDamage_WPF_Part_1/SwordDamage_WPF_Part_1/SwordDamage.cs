@@ -7,45 +7,81 @@ namespace SwordDamage_WPF_Part_1
 {
     internal class SwordDamage
     {
-        public const int BASE_DAMAGE = 3;
-        public const int FLAME_DAMAGE = 2;
+        private const int BASE_DAMAGE = 3;
+        private const int FLAME_DAMAGE = 2;
 
-        public int Roll;
-        public decimal MagicMultiplier = 1M;
-        public int FlamingDamage = 0;
-        public int Damage;
+        /// <summary>
+        /// 계산된 데미지 값을 저장합니다.
+        /// </summary>
+        public int Damage { get; private set; }
 
+        private int roll;
+
+        /// <summary>
+        /// 주사위 3개를 굴려서 나온 값을 설정하거나 변환합니다.
+        /// </summary>
+        public int Roll
+        {
+            get { return roll; }
+            set
+            {
+                roll = value;
+                CalculateDamage();
+            }
+        }
+
+        private bool magic;
+
+        /// <summary>
+        /// 마법 칼이면 true, 아니면 false를 반환합니다.
+        /// </summary>
+        public bool Magic
+        {
+            get { return magic; }
+            set
+            {
+                magic = value;
+                CalculateDamage();
+            }
+        }
+
+        private bool flaming;
+
+        /// <summary>
+        /// 불타는 칼이면 true, 아니면 false를 반환합니다.
+        /// </summary>
+        public bool Flaming
+        {
+            get { return flaming; }
+            set
+            {
+                flaming = value;
+                CalculateDamage();
+            }
+        }
+
+
+        /// <summary>
+        /// 현재 속성들의 값을 기준으로 데미지를 계산합니다.
+        /// </summary>
         public void CalculateDamage()
         {
-            Damage = (int)(Roll * MagicMultiplier) + BASE_DAMAGE + FLAME_DAMAGE;
-            Debug.WriteLine($"CalculateDamage finished: {Damage} (roll: {Roll})");
+            decimal magicMultiplier = 1M;
+            if (Magic) magicMultiplier = 1.75M;
+
+            Damage = BASE_DAMAGE;
+            Damage = (int)(Roll * magicMultiplier) + BASE_DAMAGE;
+            if (flaming) Damage += FLAME_DAMAGE;
         }
 
-        public void SetMagic(bool isMagic)
+        /// <summary>
+        /// 생성자는 기본 Magic, Flaming 값과 주사위 3개를 굴려서 나온 값을 기준으로 데미지를 계산합니다.
+        /// </summary>
+        /// <param name="startingRoll">주사위 3개를 굴려서 나온 값</param>
+        public SwordDamage(int startingRoll)
         {
-            if (isMagic)
-            {
-                MagicMultiplier = 1.75M;
-            }
-            else
-            {
-                MagicMultiplier = 1M;
-            }
+            roll = startingRoll;
             CalculateDamage();
-
-            Debug.WriteLine($"SetMagic finished: {Damage} (roll: {Roll})");
         }
-
-        public void SetFlaming(bool isFlaming)
-        {
-            CalculateDamage();
-            if (isFlaming)
-            {
-                Damage += FLAME_DAMAGE;
-            }
-
-            Debug.WriteLine($"SetFlaming finished: {Damage} (roll: {Roll})");
-        }
-
     }
 }
