@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WeaponDamage_Part_1
 {
-    internal class WeaponDamage
+    abstract class WeaponDamage
     {
         public int Damage { get; protected set; }
         private int roll;
@@ -41,7 +41,7 @@ namespace WeaponDamage_Part_1
         }
 
 
-        protected virtual void CalculateDamage() { /* 하위 클래스에서 재정의합니다.  */}
+        protected abstract void CalculateDamage();
         public WeaponDamage(int startingRoll)
         {
             roll = startingRoll;
