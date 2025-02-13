@@ -38,17 +38,13 @@ Temporary Items
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/main/Unity.gitignore
-/[Ll]ibrary/*
+/[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
 /[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-
-# Force include scene hierachy
-!/[Ll]ibrary/LastSceneManagerSetup.txt
-
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
@@ -65,6 +61,8 @@ Temporary Items
 
 # Visual Studio cache directory
 .vs/
+.vscode/
+.vsconfig
 
 # Gradle cache directory
 .gradle/
@@ -99,6 +97,7 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+*.unitypackage.meta
 *.app
 
 # Crashlytics generated file
