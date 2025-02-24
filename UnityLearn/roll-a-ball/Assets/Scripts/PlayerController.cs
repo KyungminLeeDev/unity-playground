@@ -43,7 +43,11 @@ public class PlayerController : MonoBehaviour
     /// <param name="other">The other Collider involved in this collision.</param>
     void OnTriggerEnter(Collider other)
     {
-        other.gameObject.SetActive(false);
+        if(other.gameObject.CompareTag("PickUp"))
+        {
+            other.gameObject.SetActive(false);
+        }
+        
     }
 
 }
