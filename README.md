@@ -1,7 +1,6 @@
 # unity-playground
 
-## [Unity Learn](https://learn.unity.com/)
-
+## <a href="https://learn.unity.com/)" target="_blank">Unity Learn</a>
 - Roll-a-Ball
 - 프로빌더로 편리하게 3D모델 제작하기
 
