@@ -1,4 +1,11 @@
-# Roll-a-Ball
+# [Roll-a-Ball](https://learn.unity.com/project/roll-a-ball-1)
+
+### 프로젝트 목표
+
+- 에디터 내 이동 방법 이해
+- C# 스크립트 작성
+- 새로운 Input System을 사용해 입력 설정
+- 기본 사용자 인터페이스 제작
 
 ![](roll-a-ball.png)
 
