@@ -1,5 +1,7 @@
 # Roll-a-Ball
 
+![](roll-a-ball.png)
+
 ## 1. Setting up the game
 
 ### 1.1 Create a new Unity project
@@ -136,7 +138,7 @@
 
 - `PickUp` 프리팹에 리지드바디 추가
     - 리지드바디를 추가해야 동적 오브젝트로 인식해서 프레임마다 계산이 이루어짐
-    - `Use Gravigy` 체크 해제
+    - `Use Gravity` 체크 해제
     - `Is Kinematic` 체크해서 키네마틱 리지드바디로 세팅
 - 키네마틱 리지드바디
     - 물리적인 힘에 반응하지 않고 애니메이션이 적용되며 트랜스폼에 따라 움직일 수 있음

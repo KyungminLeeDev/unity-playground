@@ -2,8 +2,9 @@
 
 ## 유니티 공식 학습 자료 [Unity Learn](https://learn.unity.com/)
 
-- [Roll-a-Ball](./UnityLearn/roll-a-ball)
-- 프로빌더로 편리하게 3D모델 제작하기
+1. [Roll-a-Ball](./UnityLearn/roll-a-ball)
+ - <img src="./UnityLearn/roll-a-ball/roll-a-ball.png" height="200"> 
+2. 프로빌더로 편리하게 3D모델 제작하기
 
 
 
